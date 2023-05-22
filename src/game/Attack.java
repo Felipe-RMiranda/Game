@@ -6,13 +6,13 @@ import javax.swing.ImageIcon;
 
 public class Attack {
 	
-	private Image img;//Imagem do tiro
-	private int x, y;//posição do tiro
-	private int alt, larg;//dimenções do tiro
-	private boolean isVisivel;//desaparecimento do tiro pós colizão
+	private Image img; //Imagem do tiro
+	private int x, y; //posição do tiro
+	private int alt, larg; //dimenções do tiro
+	private boolean isVisivel; //desaparecimento do tiro pós colizão
 	
-	private static final int LARGURA = 750;//	controle de alcanse do tiro
-	private static int VELOCIDADE = 2;//velocidade do tiro
+	private static final int LARGURA = 750; //	controle de alcanse do tiro
+	private static int VELOCIDADE = 2; //velocidade do tiro
 	
 	public Attack(int x, int y) {
 		this.x = x;
@@ -29,7 +29,7 @@ public class Attack {
 	}
 	
 	public void update() {
-		this.x =+ VELOCIDADE;
+		this.x *= VELOCIDADE;
 			if(this.x > LARGURA) {
 				isVisivel = false;
 			}

@@ -12,6 +12,7 @@ public class Player {
 	private int x, y;
 	private int dx, dy;
 	private Image img;
+	private static int VELOCIDADE = 4;
 	private int alt, larg;
 	private List <Attack> attack;
 	
@@ -48,16 +49,16 @@ public class Player {
 			attack();
 		}
 		if(cod == KeyEvent.VK_W) {
-			dy=-1;
+			dy=-1 * Player.VELOCIDADE;
 		}
 		if(cod == KeyEvent.VK_S) {
-			dy= 1;
+			dy= 1 * Player.VELOCIDADE;
 		}
 		if(cod == KeyEvent.VK_A) {
-			dx=-1;
+			dx=-1 * Player.VELOCIDADE;
 		}
 		if(cod == KeyEvent.VK_D) {
-			dx = 1;
+			dx = 1 * Player.VELOCIDADE;
 		}
 	}
 		
