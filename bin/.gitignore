@@ -1,3 +1,6 @@
-/game/
-/player/
+/entity/
+/tiles/
+/tile/
+/main/
+/maps/
 /sprites/
