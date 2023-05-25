@@ -8,8 +8,8 @@ public class Npc extends Entity{
 
 	public Npc(GamePanel gamePanel) {
 		super(gamePanel);
-		direction = Direction.Down;
-		speed = 1;
+		speed = 3;
+		onPath = true;
 		
 		getNpcImage();
 	}
@@ -26,16 +26,12 @@ public class Npc extends Entity{
 	}
 	
 	public void setAction() {
-		var random = new Random();
-		int i = random.nextInt(100) + 1;
-		
-		if(i < 50) {
-			direction = Direction.Left;
-		} else {
-			direction = Direction.Right;
+		if(onPath) {
+			int goalCol = (gamePanel.player.x + gamePanel.player.collisionArea.x) / gamePanel.tileSize;
+			int goalRow = (gamePanel.player.y + gamePanel.player.collisionArea.y) / gamePanel.tileSize;
+			
+			searchPath(goalCol, goalRow);
 		}
-		
-		direction = Direction.Left;
 	}
 
 }

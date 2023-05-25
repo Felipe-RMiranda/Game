@@ -18,6 +18,8 @@ public class Entity {
 	public int life;
 	public boolean alive;
 	
+	public boolean onPath = false;
+	
 	public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
 	public Direction direction = Direction.Down;
 	
@@ -74,6 +76,37 @@ public class Entity {
 			}
 			
 			spriteCounter = 0;
+		}
+	}
+	
+	public void searchPath(int goalCol, int goalRow) {
+		int startCol = (x + collisionArea.x) / gamePanel.tileSize;
+		int startRow = (y + collisionArea.y) / gamePanel.tileSize;
+		
+		gamePanel.pathFinder.setNodes(startCol, startRow, goalCol, goalRow);
+		
+		if(gamePanel.pathFinder.search()) {
+			int nextX = gamePanel.pathFinder.pathList.get(0).col 
+					* gamePanel.tileSize;
+			int nextY = gamePanel.pathFinder.pathList.get(0).row 
+					* gamePanel.tileSize;
+			
+			int enLeftX = x + collisionArea.x;
+			int enTopY = y + collisionArea.y;
+			
+			if(enTopY > nextY) {
+				direction = Direction.Up;
+			}
+			else if(enTopY < nextY) {
+				direction = Direction.Down;
+			}
+			else if(enTopY >= nextY) {
+				if(enLeftX > nextX) {
+					direction = Direction.Left;
+				}if(enLeftX < nextX) {
+					direction = Direction.Right;
+				}
+			}
 		}
 	}
 	

@@ -28,8 +28,8 @@ public class Player extends Entity{
 	}
 	
 	public void setDefaultValues() {
-		x = 100;
-		y = 100;
+		x = 4 * gamePanel.tileSize;
+		y = 4 * gamePanel.tileSize;
 		speed = 4;
 		direction = Direction.Down;
 		projectile = new OBJ_Axe(gamePanel);

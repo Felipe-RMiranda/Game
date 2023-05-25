@@ -30,7 +30,7 @@ public class KeyHandler implements KeyListener{
 			rightPressed = true;
 		}
 		
-		if(code == KeyEvent.VK_J) {
+		if(code == KeyEvent.VK_SPACE) {
 			shotKeyPressed = true;
 		}
 		
@@ -56,7 +56,7 @@ public class KeyHandler implements KeyListener{
 			rightPressed = false;
 		}
 		
-		if(code == KeyEvent.VK_J) {
+		if(code == KeyEvent.VK_SPACE) {
 			shotKeyPressed = false;
 		}
 		

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import entity.Entity;
 import entity.Player;
 import tile.TileManager;
+import ai.PathFinder;
 
 public class GamePanel extends JPanel implements Runnable{
 	final int baseTileSize = 16; //Tamanho da Imagem 16x16
@@ -25,12 +26,13 @@ public class GamePanel extends JPanel implements Runnable{
 	public KeyHandler keyHandler = new KeyHandler();
 	Thread gameThread;
 	
-	Player player = new Player(this, keyHandler);
-	TileManager tileManager = new TileManager(this);
+	public Player player = new Player(this, keyHandler);
+	public TileManager tileManager = new TileManager(this);
 	public CollisionHandler collisionH = new CollisionHandler(this);
 	public AssetSetter aSetter = new AssetSetter(this);
+	public PathFinder pathFinder = new PathFinder(this);
 	public Entity[] objects = new Entity[10];
-	public Entity[] npcs = new Entity[1];
+	public Entity[] npcs = new Entity[100];
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	public ArrayList<Entity> projectiles = new ArrayList<Entity>();
 	
