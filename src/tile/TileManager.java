@@ -11,8 +11,8 @@ import main.GamePanel;
 
 public class TileManager {
 	GamePanel gamePanel;
-	Tile[] tiles;
-	int[][] mapTilesNum;
+	public Tile[] tiles;
+	public int[][] mapTilesNum;
 	
 	public TileManager(GamePanel gamePanel) {
 		this.gamePanel = gamePanel;
@@ -27,9 +27,14 @@ public class TileManager {
 	public void getTileImage() {
 		try {
 			tiles[2] = new Tile(ImageIO.read(getClass().getResourceAsStream("/tiles/floor01.png")));
+			
 			tiles[1] = new Tile(ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png")));
+			tiles[1].colision = true;
+			
 			tiles[0] = new Tile(ImageIO.read(getClass().getResourceAsStream("/tiles/grass01.png")));
+			
 			tiles[3] = new Tile(ImageIO.read(getClass().getResourceAsStream("/tiles/water01.png")));
+			tiles[3].colision = true;
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -66,6 +71,15 @@ public class TileManager {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean isTilesColision(int[] tilesValues) {
+		if(tiles[tilesValues[0]].colision == true || 
+				tiles[tilesValues[1]].colision == true) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public void draw(Graphics2D g2) {
