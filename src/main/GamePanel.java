@@ -4,8 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import entity.Entity;
@@ -97,8 +101,6 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void update() {
 		player.update();
-		/*
-		 */
 		for(int i = 0; i < npcs.length; i++) {
 			if(npcs[i] != null) {
 				npcs[i].update();
@@ -120,34 +122,38 @@ public class GamePanel extends JPanel implements Runnable{
 		super.paintComponent(g);
 		
 		var g2 = (Graphics2D)g;
+		if(player.alive) {		
+			tileManager.draw(g2);
 			
-		tileManager.draw(g2);
+			entities.add(player);
+			for(int i = 0; i < npcs.length; i++) {
+				if(npcs[i] != null) {
+					entities.add(npcs[i]);
+				}
+			}
 			
-		entities.add(player);
-		for(int i = 0; i < npcs.length; i++) {
-			if(npcs[i] != null) {
-				entities.add(npcs[i]);
+			for(int i = 0; i < projectiles.size(); i++) {
+				if(projectiles.get(i) != null) {
+					entities.add(projectiles.get(i));
+				}
+			}
+			
+			for(int i = 0; i < entities.size(); i++) {
+				entities.get(i).draw(g2);
+				entities.remove(i);
+			}
+		}else {
+			
+			try {		
+				Image image = ImageIO.read(getClass().getResourceAsStream("/screen/gameOver.jpg"));
+				image = image.getScaledInstance(798, 596, Image.SCALE_DEFAULT);
+				g2.drawImage(image, 0, 0, null);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
-		/*
 		
-		for(int i = 0; i < objects.length; i++) {
-			if(objects[i] != null) {
-				entities.add(objects[i]);
-			}
-		}
-		 * */
-		
-		for(int i = 0; i < projectiles.size(); i++) {
-			if(projectiles.get(i) != null) {
-				entities.add(projectiles.get(i));
-			}
-		}
-		
-		for(int i = 0; i < entities.size(); i++) {
-			entities.get(i).draw(g2);
-			entities.remove(i);
-		}
 		
 		g2.dispose();
 	}

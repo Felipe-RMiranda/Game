@@ -18,7 +18,6 @@ public class Player extends Entity{
 		super(gamePanel);
 		this.keyHandler = keyHandler;
 		
-		//referente ao tile do player
 		collisionArea = new Rectangle(8, 16, 32, 32);
 		defaultSolidAreaX = collisionArea.x;
 		defaultSolidAreaY = collisionArea.y;
@@ -28,9 +27,10 @@ public class Player extends Entity{
 	}
 	
 	public void setDefaultValues() {
-		x = 4 * gamePanel.tileSize;
-		y = 4 * gamePanel.tileSize;
+		x = (gamePanel.maxScreenCol / 2) * gamePanel.tileSize;
+		y = (gamePanel.maxScreenRow / 2) * gamePanel.tileSize;
 		speed = 4;
+		alive = true;
 		direction = Direction.Down;
 		projectile = new OBJ_Axe(gamePanel);
 	}
@@ -72,6 +72,9 @@ public class Player extends Entity{
 			pickUpObject(objIndex);
 			
 			int npcIndex = gamePanel.collisionH.checkEntity(this, gamePanel.npcs);
+			if(npcIndex != 999) {
+				this.alive = false;
+			}
 			
 			if(collisionOn == false) {
 				switch(direction) {

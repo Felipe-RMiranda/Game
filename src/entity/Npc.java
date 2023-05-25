@@ -2,13 +2,11 @@ package entity;
 
 import main.GamePanel;
 
-import java.util.Random;
-
 public class Npc extends Entity{
 
-	public Npc(GamePanel gamePanel) {
+	public Npc(GamePanel gamePanel, int speed) {
 		super(gamePanel);
-		speed = 3;
+		this.speed = speed;
 		onPath = true;
 		
 		getNpcImage();
