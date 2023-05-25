@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import entity.Entity;
 import entity.Player;
 import tile.TileManager;
 
@@ -20,18 +22,28 @@ public class GamePanel extends JPanel implements Runnable{
 	final public int screenW = tileSize * maxScreenCol;
 	final public int screenH = tileSize * maxScreenRow;
 	
-	KeyHandler keyHandler = new KeyHandler();
+	public KeyHandler keyHandler = new KeyHandler();
 	Thread gameThread;
 	
 	Player player = new Player(this, keyHandler);
 	TileManager tileManager = new TileManager(this);
 	public CollisionHandler collisionH = new CollisionHandler(this);
+	public AssetSetter aSetter = new AssetSetter(this);
+	public Entity[] objects = new Entity[10];
+	public Entity[] npcs = new Entity[1];
+	public ArrayList<Entity> entities = new ArrayList<Entity>();
+	public ArrayList<Entity> projectiles = new ArrayList<Entity>();
 	
 	final int FPS = 60;
 	
 	int playerX = 100;
 	int playerY = 100;
 	int playerSpeed = 4;
+	
+	public void setupGame() {
+		aSetter.setObject();
+		aSetter.setNpc();
+	}
 	
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenW, screenH));
@@ -83,15 +95,57 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void update() {
 		player.update();
+		/*
+		 */
+		for(int i = 0; i < npcs.length; i++) {
+			if(npcs[i] != null) {
+				npcs[i].update();
+			}
+		}
+		
+		for(int i = 0; i < projectiles.size(); i++) {
+			if(projectiles.get(i) != null) {
+				if(projectiles.get(i).alive) {		
+					projectiles.get(i).update();
+				}else {
+					projectiles.remove(i);
+				}
+			}
+		}
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
 		var g2 = (Graphics2D)g;
-		
+			
 		tileManager.draw(g2);
-		player.draw(g2);
+			
+		entities.add(player);
+		for(int i = 0; i < npcs.length; i++) {
+			if(npcs[i] != null) {
+				entities.add(npcs[i]);
+			}
+		}
+		/*
+		
+		for(int i = 0; i < objects.length; i++) {
+			if(objects[i] != null) {
+				entities.add(objects[i]);
+			}
+		}
+		 * */
+		
+		for(int i = 0; i < projectiles.size(); i++) {
+			if(projectiles.get(i) != null) {
+				entities.add(projectiles.get(i));
+			}
+		}
+		
+		for(int i = 0; i < entities.size(); i++) {
+			entities.get(i).draw(g2);
+			entities.remove(i);
+		}
 		
 		g2.dispose();
 	}

@@ -9,17 +9,19 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
+import object.OBJ_Axe;
 
 public class Player extends Entity{
-	GamePanel gamePanel;
 	KeyHandler keyHandler;
 	
 	public Player(GamePanel gamePanel, KeyHandler keyHandler) {
-		this.gamePanel = gamePanel;
+		super(gamePanel);
 		this.keyHandler = keyHandler;
 		
 		//referente ao tile do player
 		collisionArea = new Rectangle(8, 16, 32, 32);
+		defaultSolidAreaX = collisionArea.x;
+		defaultSolidAreaY = collisionArea.y;
 		
 		setDefaultValues();
 		getPlayerImage();
@@ -30,6 +32,7 @@ public class Player extends Entity{
 		y = 100;
 		speed = 4;
 		direction = Direction.Down;
+		projectile = new OBJ_Axe(gamePanel);
 	}
 	
 	public void getPlayerImage() {
@@ -65,6 +68,11 @@ public class Player extends Entity{
 			collisionOn = false;
 			gamePanel.collisionH.checkTile(this);
 			
+			int objIndex = gamePanel.collisionH.checkObject(this, true);
+			pickUpObject(objIndex);
+			
+			int npcIndex = gamePanel.collisionH.checkEntity(this, gamePanel.npcs);
+			
 			if(collisionOn == false) {
 				switch(direction) {
 				case Up:
@@ -94,6 +102,21 @@ public class Player extends Entity{
 				
 				spriteCounter = 0;
 			}
+		}
+		
+		if(gamePanel.keyHandler.shotKeyPressed) {
+			if(!projectile.alive) {
+				
+				projectile.set(x, y, direction, true);
+				gamePanel.projectiles.add(projectile);
+			}
+			
+		}
+	}
+	
+	public void pickUpObject(int i) {
+		if(i != 999) {
+			gamePanel.objects[i] = null;
 		}
 	}
 	
