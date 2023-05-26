@@ -1,11 +1,9 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -47,13 +45,11 @@ public class GamePanel extends JPanel implements Runnable{
 	int playerSpeed = 4;
 	
 	public void setupGame() {
-		aSetter.setObject();
 		aSetter.setNpc();
 	}
 	
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenW, screenH));
-		this.setBackground(Color.black);
 		this.setDoubleBuffered(true); //Melhora a performance do jogo no geral
 		this.addKeyListener(keyHandler);
 		this.setFocusable(true);

@@ -13,14 +13,14 @@ public class Npc extends Entity{
 	}
 	
 	public void getNpcImage() {
-		up1 = setup("/weapons/axe");
-		up2 = setup("/weapons/axe");
-		left1 = setup("/weapons/axe");
-		left2 = setup("/weapons/axe");
-		right1 = setup("/weapons/axe");
-		right2 = setup("/weapons/axe");
-		down1 = setup("/weapons/axe");
-		down2 = setup("/weapons/axe");
+		up1 = setup("/monster/orc_up_1");
+		up2 = setup("/monster/orc_up_2");
+		left1 = setup("/monster/orc_left_1");
+		left2 = setup("/monster/orc_left_2");
+		right1 = setup("/monster/orc_right_1");
+		right2 = setup("/monster/orc_right_2");
+		down1 = setup("/monster/orc_down_1");
+		down2 = setup("/monster/orc_down_2");
 	}
 	
 	public void setAction() {
